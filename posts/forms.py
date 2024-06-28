@@ -5,7 +5,7 @@ from .models import Post
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ['source_url', 'body']
+        fields = ['source_url', 'body', 'tags']
 
         labels = {
             'source_url': 'Source Image URL',
@@ -14,13 +14,15 @@ class PostForm(ModelForm):
 
         widgets = {
             'body': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Write a caption...', 'class': 'font1 text-4xl'}),
+            'source_url': forms.URLInput(attrs={'placeholder': 'Paste the image URL here...'}),
+            'tags': forms.CheckboxSelectMultiple(),
         }
 
 class PostEditForm(ModelForm):
 
     class Meta:
         model = Post
-        fields = ['body']
+        fields = ['body', 'tags']
         labels = {
             'body' : '',
         }

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Post
+from .models import Post, Tag
 from .forms import PostForm, PostEditForm
 import requests
 from bs4 import BeautifulSoup
@@ -8,7 +8,8 @@ from bs4 import BeautifulSoup
 
 def home_view(request):
     posts = Post.objects.all()
-    return render(request, 'home.html', {'posts': posts})
+    tags = Tag.objects.all()
+    return render(request, 'home.html', {'posts': posts, 'tags': tags})
 
 def post_create_view(request):
     if request.method == 'POST':
@@ -38,6 +39,9 @@ def post_create_view(request):
             # post.author = request.user
 
             post.save()
+            # After you’ve manually saved the instance produced by the form,
+            # you can invoke save_m2m() to save the many-to-many form data. 
+            form.save_m2m()
             return redirect('home-page')
     
     form = PostForm()
@@ -75,3 +79,9 @@ def post_edit_view(request, pk):
 def post_detail_view(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'post_detail.html', {'post': post})
+
+def tag_posts_view(request, slug):
+    tag = get_object_or_404(Tag, slug=slug)
+    posts = tag.posts.all()
+    tags = Tag.objects.all()
+    return render(request, 'tag_posts.html', {'active_tag': tag, 'posts': posts, 'tags': tags})
