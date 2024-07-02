@@ -31,6 +31,9 @@ urlpatterns = [
     path('post/<int:pk>/', post_detail_view, name='post-detail'),
     path('tag/<slug:slug>/', tag_posts_view, name='tag-posts'),
     path('profile/', profile_view, name="profile"),
+    path('profile/edit/', profile_edit_view, name="profile-edit"),
+    path('profile/delete/', profile_delete_view, name="profile-delete"),
+    path('profile/user/<username>/', profile_view, name="user-profile"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

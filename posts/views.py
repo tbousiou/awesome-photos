@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Post, Tag
 from .forms import PostForm, PostEditForm
@@ -11,6 +12,7 @@ def home_view(request):
     tags = Tag.objects.all()
     return render(request, 'home.html', {'posts': posts, 'tags': tags})
 
+@login_required
 def post_create_view(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -36,7 +38,7 @@ def post_create_view(request):
             artist = find_artist[0].text.strip() 
             post.artist = artist
             
-            # post.author = request.user
+            post.author = request   .user
 
             post.save()
             # After you’ve manually saved the instance produced by the form,
@@ -47,9 +49,9 @@ def post_create_view(request):
     form = PostForm()
     return render(request, 'post_create.html', {'form': form})
 
-
+@login_required
 def post_delete_view(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+    post = get_object_or_404(Post, pk=pk, author=request.user)
 
     if request.method == 'POST':
         post.delete()
@@ -58,9 +60,9 @@ def post_delete_view(request, pk):
     
     return render(request, 'post_delete.html', {'post': post})
 
-
+@login_required
 def post_edit_view(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+    post = get_object_or_404(Post, pk=pk, author=request.user)
     form = PostEditForm(instance=post)
 
     if request.method == 'POST':

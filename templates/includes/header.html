@@ -24,7 +24,7 @@
             <li x-data="{ dropdownOpen: false }" class="relative">
                 <a @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="cursor-pointer select-none">
                     {% if user.is_authenticated %}
-                    <img class="h-8 w-8 rounded-full object-cover" src="{{ user.profile.avatar.url }}"/>
+                    <img class="h-8 w-8 rounded-full object-cover" src="{{ user.profile.get_avatar_url }}"/>
                     {{user.username}}
                     {% else %}
                     <img class="h-8 w-8 rounded-full object-cover" src="{% static 'images/avatar_default.svg' %}"/>
@@ -39,7 +39,7 @@
                     <ul class="hoverlist [&>li>a]:justify-end">
                         {% if user.is_authenticated %}
                         <li><a href="{% url 'profile' %}">My Profile</a></li>
-                        <li><a href="">Edit Profile</a></li>
+                        <li><a href="{% url 'profile-edit' %}">Edit Profile</a></li>
                         <li><a href="{% url 'account_logout' %}">Log Out</a></li>
                         {% else %}
                         <li><a href="{% url 'account_login' %}">Log In</a></li>
