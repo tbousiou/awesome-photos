@@ -10,6 +10,8 @@ class Profile(models.Model):
     displayname = models.CharField(max_length=30, blank=True)
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
+
+    email = models.EmailField(unique=True, null=True)
     
     created_at = models.DateTimeField(auto_now_add=True)
 

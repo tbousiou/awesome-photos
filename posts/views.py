@@ -38,7 +38,7 @@ def post_create_view(request):
             artist = find_artist[0].text.strip() 
             post.artist = artist
             
-            post.author = request   .user
+            post.author = request.user
 
             post.save()
             # After you’ve manually saved the instance produced by the form,
