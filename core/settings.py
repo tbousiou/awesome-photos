@@ -151,3 +151,5 @@ LOGIN_REDIRECT_URL = '/'
 ACCOUNT_USERNAME_BLACKLIST = [ 'admin', 'accounts', 'profile', 'category', 'post', 'inbox', 'theboss' ]
 
 EMAIL_BACKEND = "django.core.mail.backends.dummy.EmailBackend"
+
+ACCOUNT_SIGNUP_REDIRECT_URL = 'profile-onboarding'

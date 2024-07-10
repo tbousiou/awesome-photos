@@ -5,7 +5,7 @@ from django.forms import ModelForm
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['avatar', 'displayname', 'bio', 'location']
+        fields = ['avatar', 'displayname', 'email', 'bio', 'location']
 
         widgets = {
             'avatar': forms.FileInput(),

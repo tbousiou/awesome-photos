@@ -6,4 +6,12 @@
     {% include 'includes/article.html' %}
 </div>
 
+<div class="mb-20">
+    <div id="tab-contents">
+        {% for comment in post.comments.all %}
+        {% include 'comment.html' %}
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}
